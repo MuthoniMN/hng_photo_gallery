@@ -1,7 +1,6 @@
 import React from "react";
 import Searchbar from "./Searchbar";
 import Avatar from "./Avatar";
-import Button from "./Button";
 import Login from "./Login";
 
 export default function Navigation( {loggedIn} ) {
