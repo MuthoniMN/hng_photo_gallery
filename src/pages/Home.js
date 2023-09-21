@@ -1,6 +1,7 @@
-import './App.css';
-import Gallery from './components/Gallery';
-import Navigation from './components/Navigation';
+import React from 'react';
+import Gallery from '../components/Gallery';
+import Navigation from '../components/Navigation';
+import "../App.css";
 
 function Home() {
   const images = [
@@ -52,7 +53,7 @@ function Home() {
   ]
   return (
     <div className='container mx-auto'>
-      <Navigation loggedIn={false} />
+      <Navigation />
       <Gallery images={images}/>
     </div>
   );

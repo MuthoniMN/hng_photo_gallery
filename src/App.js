@@ -1,61 +1,14 @@
-import './App.css';
-import Gallery from './components/Gallery';
-import Navigation from './components/Navigation';
+import { Routes, Route } from 'react-router-dom'
+import Home from './pages/Home';
+import Search from './pages/Search';
 
 function App() {
-  const images = [
-    {
-      src: "./img/womanintech1.jpg",
-      desc: "A woman in tech",
-      tag: "woman in tech"
-    },
-    {
-      src: "./img/sky3.jpg",
-      desc: "A sky",
-      tag: "sky"
-    },
-    {
-      src: "./img/womanintech2.jpg",
-      desc: "A woman in tech",
-      tag: "woman in tech"
-    },
-    {
-      src: "./img/memes2.jpg",
-      desc: "A meme",
-      tag: "meme"
-    },
-    {
-      src: "./img/memes3.jpg",
-      desc: "A meme",
-      tag: "meme"
-    },
-    {
-      src: "./img/sky2.jpg",
-      desc: "A sky",
-      tag: "sky"
-    },
-    {
-      src: "./img/womanintech3.jpg",
-      desc: "A woman in tech",
-      tag: "woman in tech"
-    },
-    {
-      src: "./img/memes1.jpg",
-      desc: "A meme",
-      tag: "meme"
-    },
-    {
-      src: "./img/sky1.jpg",
-      desc: "A sky",
-      tag: "sky"
-    }
-  ]
   return (
-    <div className='container mx-auto'>
-      <Navigation loggedIn={false} />
-      <Gallery images={images}/>
-    </div>
-  );
+    <Routes>
+      <Route path='/' element={<Home />} />
+      <Route path='/search' element={<Search />} />
+    </Routes>
+  )
 }
 
 export default App;
