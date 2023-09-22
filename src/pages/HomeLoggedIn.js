@@ -5,11 +5,7 @@ import "../App.css";
 import {
   DndContext,
   closestCenter,
-  MouseSensor,
-  TouchSensor,
   DragOverlay,
-  useSensor,
-  useSensors,
 } from '@dnd-kit/core';
 import {
   arrayMove,
@@ -68,7 +64,6 @@ function HomeLoggedIn() {
   ];
   const [photos, setPhoto] = useState(images);
   const [activeId, setActiveId] = useState(null);
-  const sensors = useSensors(useSensor(MouseSensor), useSensor(TouchSensor));
 
   function dragStart(event) {
     setActiveId(event.active.id);
@@ -96,7 +91,6 @@ function HomeLoggedIn() {
     <div className='container mx-auto py-4'>
       <Navigation />
       <DndContext
-        sensors={sensors}
         collisionDetection={closestCenter}
         onDragStart={dragStart}
         onDragEnd={dragEnd}
