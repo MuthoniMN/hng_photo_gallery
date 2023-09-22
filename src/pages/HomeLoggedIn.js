@@ -16,6 +16,7 @@ import {
   SortableContext,
   rectSortingStrategy,
 } from '@dnd-kit/sortable';
+import { SortablePicture } from '../components/SortablePicture';
 
 function HomeLoggedIn() {
   const images = [
@@ -78,14 +79,14 @@ function HomeLoggedIn() {
       onDragEnd={dragEnd}
       onDragCancel={dragCancel}
     >
-      <SortableContext items={photos} strategy={rectSortingStrategy}>
+      <SortableContext items={photos} strategy={rectSortingStrategy} id='image-gallery'>
       <div className="grid md:grid-cols-3 gap-4 sm:grid-cols-2 justify-center">
-            {photos.map((image, index) => <Picture imgSource={image.src} imgTag={image.tag} altDesc={image.desc} key={index}/>)}
+            {photos.map((image, index) => <SortablePicture imgSource={image.src} imgTag={image.tag} altDesc={image.desc} key={image.src} index={index} />)}
         </div>
       </SortableContext>
       <DragOverlay adjustScale={true}>
         {activeId ? (
-          <Picture url={activeId} index={photos.indexOf(activeId)} />
+          <Picture imgSource={activeId} index={photos.indexOf(activeId)} />
         ) : null}
       </DragOverlay>
     </DndContext>
@@ -98,6 +99,7 @@ function HomeLoggedIn() {
   function dragEnd(event) {
     const {active, over} = event;
 
+    console.log(event);
     if (active.id !== over.id) {
       setPhoto((photos) => {
         const oldPosition = photos.indexOf(active.id);
