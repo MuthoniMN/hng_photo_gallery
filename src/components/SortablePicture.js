@@ -1,11 +1,11 @@
 import React from 'react';
 import {useSortable} from '@dnd-kit/sortable';
-import {CSS} from '@dnd-kit/utilities';
+import {CSS} from '@dnd-kit/utilities   ';
 import Picture from './Picture';
 
 
-export const SortablePicture = (props) => {
-  const sortable = useSortable({id: props.imgSource});
+export const SortablePicture = ({image}) => {
+  const sortable = useSortable({id: image.src});
   const {
     attributes,
     listeners,
@@ -21,12 +21,14 @@ export const SortablePicture = (props) => {
   };
 
   return (
-    <Picture
+    <div
       ref={setNodeRef}
       style={style}
       {...props}
       {...attributes}
       {...listeners}
-    />
+    >
+        <Picture imgSource={image.src} imgTag={image.tag} altDesc={image.desc} />
+    </div>
   );
 };

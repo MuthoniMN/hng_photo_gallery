@@ -98,7 +98,7 @@ function HomeLoggedIn() {
           onDragCancel={dragCancel}
         >
           <SortableContext items={photos} strategy={rectSortingStrategy} id='image-gallery'>
-            {photos.map((image, index) => <SortablePicture imgSource={image.src} imgTag={image.tag} altDesc={image.desc} key={image.src} index={index} />)}
+            {photos.map((image, index) => <SortablePicture image={image} key={image.src} index={index} />)}
 
 
           </SortableContext>
