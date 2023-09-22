@@ -53,11 +53,11 @@ const Search = () => {
           tag: "sky"
         }
       ]
-    let imgs = images.filter(img => img.tag === tag)
+    let imgs = images.filter(img => img.tag === tag) || null
     return(
         <div className='container mx-auto'>
             <Navigation  />
-            <Gallery images={imgs}/>
+            {<Gallery images={imgs}/> || <p>No images found....</p>}
         </div>
     )
 }
