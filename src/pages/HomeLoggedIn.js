@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import Picture from '../components/Picture';
 import Navigation from '../components/Navigation';
 import "../App.css";
@@ -69,35 +69,13 @@ function HomeLoggedIn() {
   const [photos, setPhoto] = useState(images);
   const [activeId, setActiveId] = useState(null);
   const sensors = useSensors(useSensor(MouseSensor), useSensor(TouchSensor));
-  return (
-    <div className='container mx-auto py-4'>
-      <Navigation />
-      <DndContext
-      sensors={sensors}
-      collisionDetection={closestCenter}
-      onDragStart={dragStart}
-      onDragEnd={dragEnd}
-      onDragCancel={dragCancel}
-    >
-      <SortableContext items={photos} strategy={rectSortingStrategy} id='image-gallery'>
-      <div className="grid md:grid-cols-3 gap-4 sm:grid-cols-2 justify-center">
-            {photos.map((image, index) => <SortablePicture imgSource={image.src} imgTag={image.tag} altDesc={image.desc} key={image.src} index={index} />)}
-        </div>
-      </SortableContext>
-    </DndContext>
-    <DragOverlay adjustScale={true}>
-        {activeId ? (
-          <Picture imgSource={activeId} index={photos.indexOf(activeId)} />
-        ) : null}
-      </DragOverlay>
-    </div>
-  );
+
   function dragStart(event) {
     setActiveId(event.active.id);
   }
 
   function dragEnd(event) {
-    const {active, over} = event;
+    const { active, over } = event;
     if (active.id !== over.id) {
       setPhoto((photos) => {
         const oldPosition = photos.indexOf(active.id);
@@ -113,6 +91,30 @@ function HomeLoggedIn() {
   function dragCancel() {
     setActiveId(null);
   }
+
+  return (
+    <div className='container mx-auto py-4'>
+      <Navigation />
+      <DndContext
+        sensors={sensors}
+        collisionDetection={closestCenter}
+        onDragStart={dragStart}
+        onDragEnd={dragEnd}
+        onDragCancel={dragCancel}
+      >
+        <SortableContext items={photos} strategy={rectSortingStrategy} id='image-gallery'>
+          <div className="grid md:grid-cols-3 gap-4 sm:grid-cols-2 justify-center">
+            {photos.map((image, index) => <SortablePicture imgSource={image.src} imgTag={image.tag} altDesc={image.desc} key={image.src} index={index} />)}
+          </div>
+        </SortableContext>
+      </DndContext>
+      <DragOverlay adjustScale={true}>
+        {activeId ? (
+          <Picture imgSource={activeId} index={photos.indexOf(activeId)} />
+        ) : null}
+      </DragOverlay>
+    </div>
+  );
 }
 
 export default HomeLoggedIn;
