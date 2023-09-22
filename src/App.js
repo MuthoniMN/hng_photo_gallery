@@ -9,6 +9,7 @@ function App() {
   return (
     <Routes>
       <Route path='/' element={isAuthenticated ? <HomeLoggedIn /> : <Home />} />
+      <Route path='/home' element={<HomeLoggedIn />} />
       <Route path='/search' element={<Search />} />
     </Routes>
   )

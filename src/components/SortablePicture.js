@@ -1,14 +1,15 @@
 import React from 'react';
 import {useSortable} from '@dnd-kit/sortable';
-import {CSS} from '@dnd-kit/utilities   ';
+import {CSS} from '@dnd-kit/utilities';
 import Picture from './Picture';
 
 
-export const SortablePicture = ({image}) => {
+export const SortablePicture = ({image, ...props}) => {
   const sortable = useSortable({id: image.src});
   const {
     attributes,
     listeners,
+    isDragging,
     setNodeRef,
     transform,
     transition,
@@ -28,7 +29,7 @@ export const SortablePicture = ({image}) => {
       {...attributes}
       {...listeners}
     >
-        <Picture imgSource={image.src} imgTag={image.tag} altDesc={image.desc} />
+        <Picture image={image} />
     </div>
   );
 };

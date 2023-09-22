@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
-import Picture from '../components/Picture';
 import Navigation from '../components/Navigation';
 import "../App.css";
 import {
   DndContext,
   closestCenter,
   DragOverlay,
+  KeyboardSensor, MouseSensor, useSensor, useSensors
 } from '@dnd-kit/core';
 import {
   arrayMove,
@@ -13,8 +13,12 @@ import {
   rectSortingStrategy,
 } from '@dnd-kit/sortable';
 import { SortablePicture } from '../components/SortablePicture';
+import Picture from '../components/Picture';
 
 function HomeLoggedIn() {
+  const mouseSensor = useSensor(MouseSensor)
+  const keyboardSensor = useSensor(KeyboardSensor)
+  const sensors = useSensors(mouseSensor, keyboardSensor)
   const images = [
     {
       src: "./img/womanintech1.jpg",
@@ -79,7 +83,6 @@ function HomeLoggedIn() {
         return arrayMove(photos, oldPosition, newPosition);
       });
     }
-
     setActiveId(null);
   }
 
@@ -92,23 +95,22 @@ function HomeLoggedIn() {
       <Navigation />
       <div className="grid md:grid-cols-3 gap-4 sm:grid-cols-2 justify-center">
         <DndContext
+          sensors={sensors}
           collisionDetection={closestCenter}
-          onDragStart={dragStart}
           onDragEnd={dragEnd}
+          onDragStart={dragStart}
           onDragCancel={dragCancel}
         >
           <SortableContext items={photos} strategy={rectSortingStrategy} id='image-gallery'>
             {photos.map((image, index) => <SortablePicture image={image} key={image.src} index={index} />)}
-
-
           </SortableContext>
         </DndContext>
-      </div>
-      <DragOverlay adjustScale={true}>
+        <DragOverlay adjustScale={true}>
         {activeId ? (
-          <Picture imgSource={activeId} index={photos.indexOf(activeId)} />
+          <Picture image={photos.filter(img => img.src === activeId)} index={photos.indexOf(activeId)} />
         ) : null}
       </DragOverlay>
+      </div>
     </div>
   );
 }
