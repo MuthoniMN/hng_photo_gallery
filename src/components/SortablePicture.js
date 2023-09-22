@@ -1,7 +1,7 @@
 import React from 'react';
-import {useSortable} from '@dnd-kit/sortable';
 import {CSS} from '@dnd-kit/utilities';
 import Picture from './Picture';
+import { useSortable } from '@dnd-kit/sortable';
 
 
 export const SortablePicture = ({image, ...props}) => {
@@ -9,7 +9,6 @@ export const SortablePicture = ({image, ...props}) => {
   const {
     attributes,
     listeners,
-    isDragging,
     setNodeRef,
     transform,
     transition,
@@ -17,8 +16,8 @@ export const SortablePicture = ({image, ...props}) => {
 
 
   const style = {
-    transform: CSS.Transform.toString(transform),
     transition,
+    transform: CSS.Translate.toString(transform)
   };
 
   return (

@@ -5,7 +5,7 @@ import {
   DndContext,
   closestCenter,
   DragOverlay,
-  KeyboardSensor, MouseSensor, useSensor, useSensors
+  KeyboardSensor, MouseSensor, useSensor, useSensors, closestCorners
 } from '@dnd-kit/core';
 import {
   arrayMove,
@@ -13,7 +13,7 @@ import {
   rectSortingStrategy,
 } from '@dnd-kit/sortable';
 import { SortablePicture } from '../components/SortablePicture';
-import Picture from '../components/Picture';
+import { PictureOverlay } from '../components/PictureOverlay';
 
 function HomeLoggedIn() {
   const mouseSensor = useSensor(MouseSensor)
@@ -66,7 +66,7 @@ function HomeLoggedIn() {
       tag: "sky"
     }
   ];
-  const [photos, setPhoto] = useState(images);
+  const [photos, setPhoto] = useState(images.map((image, index) => `image-${index}`));
   const [activeId, setActiveId] = useState(null);
 
   function dragStart(event) {
@@ -74,13 +74,14 @@ function HomeLoggedIn() {
   }
 
   function dragEnd(event) {
+    console.log(event);
     const { active, over } = event;
-    if (active.id !== over.id) {
+    if (active && over && active?.id !== over?.id) {
       setPhoto((photos) => {
         const oldPosition = photos.indexOf(active.id);
         const newPosition = photos.indexOf(over.id);
 
-        return arrayMove(photos, oldPosition, newPosition);
+        return arrayMove(images, oldPosition, newPosition);
       });
     }
     setActiveId(null);
@@ -96,20 +97,21 @@ function HomeLoggedIn() {
       <div className="grid md:grid-cols-3 gap-4 sm:grid-cols-2 justify-center">
         <DndContext
           sensors={sensors}
-          collisionDetection={closestCenter}
+          collisionDetection={closestCorners}
           onDragEnd={dragEnd}
           onDragStart={dragStart}
           onDragCancel={dragCancel}
         >
-          <SortableContext items={photos} strategy={rectSortingStrategy} id='image-gallery'>
-            {photos.map((image, index) => <SortablePicture image={image} key={image.src} index={index} />)}
+          <SortableContext items={images} strategy={rectSortingStrategy} id='image-gallery'>
+            {images.map((image, index) => <SortablePicture image={image} key={image.src} index={index} />)}
           </SortableContext>
-        </DndContext>
-        <DragOverlay adjustScale={true}>
+          <DragOverlay adjustScale={true}>
+            {console.log(activeId)}
         {activeId ? (
-          <Picture image={photos.filter(img => img.src === activeId)} index={photos.indexOf(activeId)} />
+          <PictureOverlay url={activeId}  index={images.indexOf(activeId)} />
         ) : null}
       </DragOverlay>
+        </DndContext>
       </div>
     </div>
   );
