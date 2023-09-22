@@ -3,7 +3,6 @@ import Navigation from '../components/Navigation';
 import "../App.css";
 import {
   DndContext,
-  closestCenter,
   DragOverlay,
   KeyboardSensor, MouseSensor, useSensor, useSensors, closestCorners
 } from '@dnd-kit/core';
@@ -66,7 +65,7 @@ function HomeLoggedIn() {
       tag: "sky"
     }
   ];
-  const [photos, setPhoto] = useState(images.map((image, index) => `image-${index}`));
+  const [photos, setPhoto] = useState(images.map((image) => image.src));
   const [activeId, setActiveId] = useState(null);
 
   function dragStart(event) {
@@ -76,12 +75,12 @@ function HomeLoggedIn() {
   function dragEnd(event) {
     console.log(event);
     const { active, over } = event;
-    if (active && over && active?.id !== over?.id) {
+    if (active?.id !== over?.id) {
       setPhoto((photos) => {
         const oldPosition = photos.indexOf(active.id);
         const newPosition = photos.indexOf(over.id);
 
-        return arrayMove(images, oldPosition, newPosition);
+        return arrayMove(photos, oldPosition, newPosition);
       });
     }
     setActiveId(null);
@@ -103,7 +102,7 @@ function HomeLoggedIn() {
           onDragCancel={dragCancel}
         >
           <SortableContext items={images} strategy={rectSortingStrategy} id='image-gallery'>
-            {images.map((image, index) => <SortablePicture image={image} key={image.src} index={index} />)}
+            {photos.map((image, index) => <SortablePicture image={images.find(img => img.src === image)} key={image.src} index={index} />)}
           </SortableContext>
           <DragOverlay adjustScale={true}>
             {console.log(activeId)}
