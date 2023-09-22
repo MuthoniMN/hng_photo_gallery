@@ -1,5 +1,6 @@
 # Drag and Drop Gallery
-A React image gallery
+A React image gallery with drag and down functionality.
+
 ![Drag and Drop Gallery](./michellesGallery.gif)
 
 ## Tech Stack
