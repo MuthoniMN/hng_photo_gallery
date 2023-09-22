@@ -6,7 +6,7 @@ import LogoutButton from "./Logout";
 
 export default function Navigation() {
     return (
-        <nav className="flex justify-between flex-wrap py-8 px-12 w-full">
+        <nav className="flex justify-between flex-wrap py-8 px-12 w-full mb-4">
             <img src="./logo.png" alt="Michelle's Gallery" className="w-16 h-16"/>
             <Searchbar searchText={(x) => <Search tag={x}/>} />
             <Login />

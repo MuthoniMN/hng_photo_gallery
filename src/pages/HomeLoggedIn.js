@@ -70,7 +70,7 @@ function HomeLoggedIn() {
   const [activeId, setActiveId] = useState(null);
   const sensors = useSensors(useSensor(MouseSensor), useSensor(TouchSensor));
   return (
-    <div className='container mx-auto'>
+    <div className='container mx-auto py-4'>
       <Navigation />
       <DndContext
       sensors={sensors}
@@ -98,8 +98,6 @@ function HomeLoggedIn() {
 
   function dragEnd(event) {
     const {active, over} = event;
-
-    console.log(event);
     if (active.id !== over.id) {
       setPhoto((photos) => {
         const oldPosition = photos.indexOf(active.id);
