@@ -1,6 +1,6 @@
 # Drag and Drop Gallery
 A React image gallery
-![MovieBox](./public/michellesGalleryScreenshot.png)
+![Drag and Drop Gallery](./public/michellesGalleryScreenshot.png)
 
 ## Tech Stack
 - React
