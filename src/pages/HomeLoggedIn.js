@@ -90,18 +90,20 @@ function HomeLoggedIn() {
   return (
     <div className='container mx-auto py-4'>
       <Navigation />
-      <DndContext
-        collisionDetection={closestCenter}
-        onDragStart={dragStart}
-        onDragEnd={dragEnd}
-        onDragCancel={dragCancel}
-      >
-        <SortableContext items={photos} strategy={rectSortingStrategy} id='image-gallery'>
-          <div className="grid md:grid-cols-3 gap-4 sm:grid-cols-2 justify-center">
+      <div className="grid md:grid-cols-3 gap-4 sm:grid-cols-2 justify-center">
+        <DndContext
+          collisionDetection={closestCenter}
+          onDragStart={dragStart}
+          onDragEnd={dragEnd}
+          onDragCancel={dragCancel}
+        >
+          <SortableContext items={photos} strategy={rectSortingStrategy} id='image-gallery'>
             {photos.map((image, index) => <SortablePicture imgSource={image.src} imgTag={image.tag} altDesc={image.desc} key={image.src} index={index} />)}
-          </div>
-        </SortableContext>
-      </DndContext>
+
+
+          </SortableContext>
+        </DndContext>
+      </div>
       <DragOverlay adjustScale={true}>
         {activeId ? (
           <Picture imgSource={activeId} index={photos.indexOf(activeId)} />
