@@ -9,7 +9,6 @@ export const SortablePicture = (props) => {
   const {
     attributes,
     listeners,
-    isDragging,
     setNodeRef,
     transform,
     transition,
@@ -28,7 +27,6 @@ export const SortablePicture = (props) => {
       {...props}
       {...attributes}
       {...listeners}
-      {...isDragging}
     />
   );
 };
