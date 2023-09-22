@@ -57,7 +57,7 @@ const Search = () => {
     return(
         <div className='container mx-auto'>
             <Navigation  />
-            {<Gallery images={imgs}/> || <p>No images found....</p>}
+            {<Gallery images={imgs}/>}
         </div>
     )
 }
