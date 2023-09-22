@@ -84,12 +84,12 @@ function HomeLoggedIn() {
             {photos.map((image, index) => <SortablePicture imgSource={image.src} imgTag={image.tag} altDesc={image.desc} key={image.src} index={index} />)}
         </div>
       </SortableContext>
-      <DragOverlay adjustScale={true}>
+    </DndContext>
+    <DragOverlay adjustScale={true}>
         {activeId ? (
           <Picture imgSource={activeId} index={photos.indexOf(activeId)} />
         ) : null}
       </DragOverlay>
-    </DndContext>
     </div>
   );
   function dragStart(event) {
